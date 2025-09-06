@@ -3,6 +3,8 @@
 WeatherApp is a simple educational weather lookup application built with **Go** (backend) and a **HTML/CSS frontend**.  
 It allows users to search for a city, fetch real-time weather data, and display the results in a clean interface.  
 
+![weatherapp](https://i.imgur.com/hLs2OQD.png)
+
 ---
 
 ## 📂 Project Structure
