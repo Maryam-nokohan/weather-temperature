@@ -88,7 +88,7 @@ go run backend/cmd/main.go
 
 Go to `http://localhost:8080`
 
-# 📖 Tech Stack
+## 📖 Tech Stack
 
 Backend: Go, chi router
 
@@ -98,7 +98,7 @@ Templates: Go’s html/template
 
 Config: godotenv
 
-# 🤝 Contributing
+## 🤝 Contributing
 
 Fork this repo
 
@@ -110,7 +110,7 @@ Push to your fork (git push origin feature/my-feature)
 
 Open a Pull Request
 
-📜 License
+## 📜 License
 
 MIT License – feel free to use this project as you like.
 
