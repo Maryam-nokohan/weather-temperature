@@ -24,3 +24,50 @@ type Weather interface {
 	GetWeather(lat float64 , lon float64)(*WeatherResponse , error)
 }
 
+func NewWeatherResponse()(* WeatherResponse){
+	return  &WeatherResponse{
+		Latitude: 0.0,
+		Longitude: 0.0,
+		Elevation: 0.0,
+		Timezone: "none",
+		TimezoneAbbreviation: "None",
+		Hourly: models.Hourly{
+			Time: make([]string, 0),
+			Temperature2m: make([]float64, 0.0),
+		},
+		HourlyUnits: models.Units{
+			Temperature2m: "C",
+		},
+	}
+}
+
+func (w *WeatherResponse)GetWeather(lat float64 , lon float64)(*WeatherResponse , error){
+	wr := NewWeatherResponse()
+	url := fmt.Sprintf(
+        "https://api.open-meteo.com/v1/forecast?latitude=%f&longitude=%f&hourly=temperature_2m",
+        lat, lon,
+    )
+
+	resp , err := http.Get(url)
+	if err != nil {
+		return  nil , fmt.Errorf("faild to get response from weather api")
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return  nil , fmt.Errorf("status for response is not ok : " , err)
+	}
+
+	body ,err := io.ReadAll(resp.Body)
+
+	if err != nil {
+		return  nil , fmt.Errorf("failed to Read the response")
+	}
+
+	if err := json.Unmarshal(body , wr) ; err != nil {
+		return  nil , err
+	}
+	return  wr , err
+
+}
