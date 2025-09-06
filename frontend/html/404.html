@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page not found!</title>
+<style type="text/css">
+body {
+font-family: Helvetica, Arial;
+background-color: #facb11;
+color: #333;
+text-align: center;
+}
+.shattered-glass-button {
+  background: linear-gradient(45deg,hsl(50, 90%, 50%)50%, #f5f5f5 50%);
+  background-size: 200% 100%;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  transition: background-position 0.5s ease;
+}
+
+.shattered-glass-button:hover {
+  background-position: -100% 0;
+  color: #000;
+}
+.link{
+    font-family: sans-serif;
+    color: #000;
+    text-decoration: none;    
+}
+</style>
+<link rel="stylesheet" type="text/css" media="screen"
+href="http://code.ionicframework.com/ionicons/2.0.1/css/ion
+icons.min.css"></link>
+</head>
+<body>
+<h1><i class="ion-android-warning"></i> {{.Message}}</h1>
+<div>Look, we feel terrible about this, but an error occures</div>
+
+<div class="btn-card">
+                    <button class="shattered-glass-button">
+                        <a class="link" href="/">Search again</a>
+                        </button>
+                </div>
+</body>
+</html>
