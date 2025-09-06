@@ -47,7 +47,7 @@ It allows users to search for a city, fetch real-time weather data, and display 
 ## 🚀 Features
 
 - Search weather by city name  
-- Fetch weather data from open meteo API  
+- Fetch weather data from [open meteo](https://open-meteo.com/) API  
 - Simple responsive frontend (HTML + CSS)  
 - Go backend using [chi router](https://github.com/go-chi/chi)  
 - Config management via `.env`  
@@ -76,7 +76,7 @@ go mod tidy
 Create a .env file in the project root:
 
 ```bash
-ADDR=:8080
+PORT=:8080
 ```
 
 1. Run the app
