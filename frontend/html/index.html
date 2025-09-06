@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Weather Search</title>
+<link rel="stylesheet" href="/static/css/style.css">
+    </head>
+    <body>
+        <h6>
+            <label class="switch">
+                <input class="switch__input" type="checkbox" role="switch">
+                <span class="switch__sr">Dark Mode</span>
+            </label>
+        </h6>
+
+        <div class="box">
+            <h1>Find Weather</h1>
+            <form method="POST" action="/search">
+                <input type="text" id="cityName" name="cityName"
+                    placeholder="Type a City..."><br>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+
+    </body>
+</html>
