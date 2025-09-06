@@ -7,11 +7,14 @@ import (
 	"github.com/maryam-nokohan/WeatherApp/backend/internal/weather"
 )
 
-var templates = template.Must(template.ParseFiles("frontend/html/index.html", "frontend/html/city.html"))
+var templates = template.Must(template.ParseFiles("frontend/html/index.html", "frontend/html/city.html" , "frontend/html/404.html"))
 
 type CityWeatherData struct {
 	City        string
 	Temperature string
+}
+type ErrorData struct {
+	Message string
 }
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
@@ -25,33 +28,41 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
-
+func RenderError(w http.ResponseWriter , err string , code int){
+	w.WriteHeader(code)
+	data := ErrorData{
+		Message: err,
+	}
+	if err := templates.ExecuteTemplate(w , "404.html" , data); err != nil{
+		http.Error(w , "Unexpected error", http.StatusInternalServerError)
+	}
+}
 func SearchCityPage(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		RenderError(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	if err := r.ParseForm(); err != nil {
-		http.Error(w, "unable to parse form", http.StatusBadRequest)
+		RenderError(w, "unable to parse form", http.StatusBadRequest)
 	}
 	cityName := r.FormValue("cityName")
 
 	if cityName == "" {
-		http.Error(w, "City name is empty!", http.StatusBadRequest)
+		RenderError(w, "City name is empty!", http.StatusBadRequest)
 		return
 	}
 
 	city, err := weather.GetCity(cityName)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("error getting city : %s", err), http.StatusInternalServerError)
+		RenderError(w, fmt.Sprintf("error getting city : %s", err), http.StatusInternalServerError)
 		return
 	}
 
 	 wr := weather.NewWeatherResponse()
     wr, err = wr.GetWeather(city.Latitude, city.Longitude)
     if err != nil {
-        http.Error(w, fmt.Sprintf("Error getting weather: %v", err), http.StatusInternalServerError)
+        RenderError(w, fmt.Sprintf("Error getting weather: %v", err), http.StatusInternalServerError)
         return
     }
 	
@@ -62,19 +73,19 @@ func SearchCityPage(w http.ResponseWriter, r *http.Request) {
 func HandleCity(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		RenderError(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	cityName := r.URL.Query().Get("city")
 	if cityName == "" {
-		http.Error(w, "City name is empty!", http.StatusBadRequest)
+		RenderError(w, "City name is empty!", http.StatusBadRequest)
 		return
 	}
 
 	city, err := weather.GetCity(cityName)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("error getting city : %s", err), http.StatusInternalServerError)
+		RenderError(w, fmt.Sprintf("error getting city : %s", err), http.StatusInternalServerError)
 		return
 	}
 
@@ -82,12 +93,12 @@ func HandleCity(w http.ResponseWriter, r *http.Request) {
 	wr, err = wr.GetWeather(city.Latitude, city.Longitude)
 
 	if err != nil {
-		http.Error(w, fmt.Sprintf("error getting city weather : %s", err), http.StatusInternalServerError)
+		RenderError(w, fmt.Sprintf("error getting city weather : %s", err), http.StatusInternalServerError)
 		return
 	}
 
 	 if len(wr.Hourly.Temperature2m) == 0 {
-        http.Error(w, "No temperature data available", http.StatusInternalServerError)
+        RenderError(w, "No temperature data available", http.StatusInternalServerError)
         return
     }
 
@@ -98,7 +109,7 @@ func HandleCity(w http.ResponseWriter, r *http.Request) {
     }
 
     if err := templates.ExecuteTemplate(w, "city.html", data); err != nil {
-        http.Error(w, "Error rendering template", http.StatusInternalServerError)
+        RenderError(w, "Error rendering template", http.StatusInternalServerError)
         return
     }
 
