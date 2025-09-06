@@ -1,0 +1,47 @@
+# ========================
+# Go / Backend
+# ========================
+
+# Binaries
+/backend/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Build artifacts
+*.test
+*.out
+
+# Vendor
+/vendor/
+
+# Go modules
+go.sum
+
+# IDE/editor files
+*.swp
+*.swo
+*.idea/
+*.vscode/
+*.DS_Store
+
+# ========================
+# Frontend / Web
+# ========================
+
+# Node / npm (if you add a package.json later)
+node_modules/
+dist/
+build/
+
+# CSS / JS cache
+*.css.map
+*.js.map
+
+# ========================
+# Documentation / Misc
+# ========================
+*.log
+*.tmp
