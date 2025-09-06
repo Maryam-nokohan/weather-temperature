@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Result</title>
-</head>
-<body>
-    <h1>Weather in {{.City}}</h1>
-    <p>{{.Temperature}}</p>
-    <a href="/">Search again</a>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Weather Result</title>
+        <link rel="stylesheet" href="/static/css/cityStyle.css">
+    </head>
+    <body>
+        <div class="mode">
+
+            <h6>
+                <label class="switch">
+                    <input class="switch__input" type="checkbox" role="switch">
+                    <span class="switch__sr">Dark Mode</span>
+                </label>
+            </h6>
+        </div>
+
+        <h1 class="main-head">Weather in {{.City}}</h1>
+        <h2 class="temp">{{.Temperature}}</h2>
+        <div class="search">
+                <div class="btn-card">
+                    <button class="shattered-glass-button">
+                        <a class="link" href="/">Search again</a>
+                        </button>
+                </div>
+        </div>
+    </body>
 </html>
