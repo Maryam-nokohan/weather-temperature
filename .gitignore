@@ -35,7 +35,7 @@ go.sum
 node_modules/
 dist/
 build/
-
+.env
 # CSS / JS cache
 *.css.map
 *.js.map
